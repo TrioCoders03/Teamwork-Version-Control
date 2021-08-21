@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Calendar {
 	
-	private static Calendar self;//changed to self
+	private static Calendar sElF;
 	private static java.util.Calendar cAlEnDaR;
 	
 	
@@ -20,7 +20,7 @@ public class Calendar {
 	}
 	
 	public void incrementDate(int days) {
-		calender.add(java.util.Calendar.DATE, days);	//change to calender	
+		cAlEnDaR.add(java.util.Calendar.DATE, days);	
 	}
 	
 	public synchronized void SeT_DaTe(Date DaTe) {
