@@ -29,11 +29,11 @@ public class Library implements Serializable {
 	private static final double MAX_FINES_OWED = 1.0;		//private static final double maxFinesOwed = 1.0;
 	private static final double DAMAGE_FEE = 2.0;			//private static final double damageFee = 2.0;
 	
-	private static Library SeLf;
-	private int bOoK_Id;
-	private int mEmBeR_Id;
-	private int lOaN_Id;
-	private Date lOaN_DaTe;
+	private static Library self;					//private static Library SeLf;			
+	private int bookId;						//private int bOoK_Id;	
+	private int memberId;						//private int mEmBeR_Id;
+	private int loanId;						//private int lOaN_Id;
+	private Date loanDate;						//private Date lOaN_DaTe;
 	
 	private Map<Integer, Book> CaTaLoG;
 	private Map<Integer, Member> MeMbErS;
