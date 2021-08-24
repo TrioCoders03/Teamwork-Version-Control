@@ -48,9 +48,9 @@ public class Library implements Serializable {
 		LoAnS = new HashMap<>();
 		CuRrEnT_LoAnS = new HashMap<>();
 		DaMaGeD_BoOkS = new HashMap<>();
-		bOoK_Id = 1;
-		mEmBeR_Id = 1;		
-		lOaN_Id = 1;		
+		bookId = 1;				//bOoK_Id = 1;
+		memberId = 1;				//mEmBeR_Id = 1;	
+		loanId = 1;				//lOaN_Id = 1;	
 	}
 
 	
