@@ -53,7 +53,7 @@ public class Library implements Serializable {
 		loanId = 1;				//lOaN_Id = 1;	
 	}
 
-	
+/*
 	public static synchronized Library GeTiNsTaNcE() {		
 		if (SeLf == null) {
 			Path PATH = Paths.get(lIbRaRyFiLe);			
@@ -71,6 +71,25 @@ public class Library implements Serializable {
 			else SeLf = new Library();
 		}
 		return SeLf;
+	}
+*/
+	public static synchronized Library GeTiNsTaNcE() {		
+		if (self == null) {
+			Path PATH = Paths.get(LIBRARY_FILE);			
+			if (Files.exists(PATH)) {	
+				try (ObjectInputStream LiBrArY_FiLe = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
+			    
+					self = (Library) LiBrArY_FiLe.readObject();
+					Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
+					LiBrArY_FiLe.close();
+				}
+				catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else self = new Library();
+		}
+		return self;
 	}
 
 	
