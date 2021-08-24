@@ -1,3 +1,8 @@
+// Author: Jeel
+// Mediator: Mariam
+// Reviewer: Prakriti
+
+
 package library.entities;
 
 import java.io.FileInputStream;
@@ -17,12 +22,12 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class Library implements Serializable {
 	
-	private static final String lIbRaRyFiLe = "library.obj";
-	private static final int lOaNlImIt = 2;
-	private static final int loanPeriod = 2;
-	private static final double FiNe_PeR_DaY = 1.0;
-	private static final double maxFinesOwed = 1.0;
-	private static final double damageFee = 2.0;
+	private static final String LIBRARY_FILE = "library.obj";  	//private static final String lIbRaRyFiLe = "library.obj";
+	private static final int LOAN_LIMIT = 2;       			//private static final int lOaNlImIt = 2;
+	private static final int LOAN_PERIOD = 2;			//private static final int loanPeriod = 2;
+	private static final double FINE_PER_DAY = 1.0;			//private static final double FiNe_PeR_DaY = 1.0;	
+	private static final double MAX_FINES_OWED = 1.0;		//private static final double maxFinesOwed = 1.0;
+	private static final double DAMAGE_FEE = 2.0;			//private static final double damageFee = 2.0;
 	
 	private static Library SeLf;
 	private int bOoK_Id;
