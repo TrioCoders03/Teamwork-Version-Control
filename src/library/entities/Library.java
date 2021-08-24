@@ -29,11 +29,11 @@ public class Library implements Serializable {
 	private static final double MAX_FINES_OWED = 1.0;		//private static final double maxFinesOwed = 1.0;
 	private static final double DAMAGE_FEE = 2.0;			//private static final double damageFee = 2.0;
 	
-	private static Library SeLf;
-	private int bOoK_Id;
-	private int mEmBeR_Id;
-	private int lOaN_Id;
-	private Date lOaN_DaTe;
+	private static Library self;					//private static Library SeLf;			
+	private int bookId;						//private int bOoK_Id;	
+	private int memberId;						//private int mEmBeR_Id;
+	private int loanId;						//private int lOaN_Id;
+	private Date loanDate;						//private Date lOaN_DaTe;
 	
 	private Map<Integer, Book> CaTaLoG;
 	private Map<Integer, Member> MeMbErS;
@@ -48,12 +48,12 @@ public class Library implements Serializable {
 		LoAnS = new HashMap<>();
 		CuRrEnT_LoAnS = new HashMap<>();
 		DaMaGeD_BoOkS = new HashMap<>();
-		bOoK_Id = 1;
-		mEmBeR_Id = 1;		
-		lOaN_Id = 1;		
+		bookId = 1;				//bOoK_Id = 1;
+		memberId = 1;				//mEmBeR_Id = 1;	
+		loanId = 1;				//lOaN_Id = 1;	
 	}
 
-	
+/*
 	public static synchronized Library GeTiNsTaNcE() {		
 		if (SeLf == null) {
 			Path PATH = Paths.get(lIbRaRyFiLe);			
@@ -71,6 +71,25 @@ public class Library implements Serializable {
 			else SeLf = new Library();
 		}
 		return SeLf;
+	}
+*/
+	public static synchronized Library GeTiNsTaNcE() {		
+		if (self == null) {
+			Path PATH = Paths.get(LIBRARY_FILE);			
+			if (Files.exists(PATH)) {	
+				try (ObjectInputStream LiBrArY_FiLe = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
+			    
+					self = (Library) LiBrArY_FiLe.readObject();
+					Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
+					LiBrArY_FiLe.close();
+				}
+				catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else self = new Library();
+		}
+		return self;
 	}
 
 	
