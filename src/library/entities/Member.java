@@ -1,3 +1,8 @@
+//Author: Prakriti
+//Mediator: Jeel
+//Reviewer: Marium
+
+
 package library.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,107 +13,111 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class Member implements Serializable {
 
-	private String LaSt_NaMe;
-	private String FiRsT_NaMe;
-	private String EmAiL_AdDrEsS;
-	private int PhOnE_NuMbEr;
-	private int MeMbEr_Id;
-	private double FiNeS_OwInG;
+	private String lastName; //LaSt_NaMe= lastName
+	private String firstName; //FiRsT_NaMe= firstName
+	private String emailAddress; //EmAiL_AdDrEsS=emailAddress
+	private int phoneNumber; //PhOnE_NuMbEr= phoneNumber
+	private int memberId;//MeMbEr_Id= memberId
+	private double finesOwing; //FiNeS_OwInG= finesOwing
 	
-	private Map<Integer, Loan> cUrReNt_lOaNs;
+	private Map<Integer, Loan> currentLoans; //cUrReNt_lOaNs= currentLoans
 
 	
-	public Member(String lAsT_nAmE, String fIrSt_nAmE, String eMaIl_aDdReSs, int pHoNe_nUmBeR, int mEmBeR_iD) {
-		this.LaSt_NaMe = lAsT_nAmE;
-		this.FiRsT_NaMe = fIrSt_nAmE;
-		this.EmAiL_AdDrEsS = eMaIl_aDdReSs;
-		this.PhOnE_NuMbEr = pHoNe_nUmBeR;
-		this.MeMbEr_Id = mEmBeR_iD;
+	public Member(String lastName, String firstName, String emailAddress, int phoneNumber, int memberID) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.emailAddress = emailAddress;
+		this.phoneNumber = phoneNumber;
+		this.memberId = memberId;// corrected firstName, lastName, emailAddress, phoneNumber, memberId
 		
-		this.cUrReNt_lOaNs = new HashMap<>();
+		this.currentLoans = new HashMap<>(); //corrected currentLoans
 	}
 
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Member:  ").append(MeMbEr_Id).append("\n")
-		  .append("  Name:  ").append(LaSt_NaMe).append(", ").append(FiRsT_NaMe).append("\n")
-		  .append("  Email: ").append(EmAiL_AdDrEsS).append("\n")
-		  .append("  Phone: ").append(PhOnE_NuMbEr)
-		  .append("\n")
-		  .append(String.format("  Fines Owed :  $%.2f", FiNeS_OwInG))
+		sb.append("Member:  ").append(memberId).append("\n")
+		  .append("  Name:  ").append(lastName).append(", ").append(firstName).append("\n")
+		  .append("  Email: ").append(emailAddress).append("\n")
+		  .append("  Phone: ").append(phoneNumber)
+		  .append("\n")   // corrected firstName, lastName, emailAddress, phoneNumber, memberId
+		
+		  .append(String.format("  Fines Owed :  $%.2f", finesOwing)) //cUrReNt_lOaNs= currentLoans
 		  .append("\n");
 		
-		for (Loan LoAn : cUrReNt_lOaNs.values()) {
+		for (Loan Loan : currentLoans.values()) {//corrected loan and currentLoans
 			sb.append(LoAn).append("\n");
 		}		  
 		return sb.toString();
 	}
 
 	
-	public int GeT_ID() {
-		return MeMbEr_Id;
+	public int getid() { //Get_ID to getid
+		return memberId; //corrected memberId
 	}
 
 	
-	public List<Loan> GeT_LoAnS() {
-		return new ArrayList<Loan>(cUrReNt_lOaNs.values());
+	public List<Loan> getLoans() { //GeT_Loans= getLoans
+		return new ArrayList<Loan>(currentLoans.values()); //corrected currentLoans
 	}
 
 	
-	public int gEt_nUmBeR_Of_CuRrEnT_LoAnS() {
-		return cUrReNt_lOaNs.size();
+	public int getnumberofcurrentLoans() { // gEt_nUmBeR_Of_CuRrEnT_LoAnS=getnumberofcurrentLoans
+		return currentLoans.size();  //cUrReNt_lOaNs.siz= currentLoans.size
 	}
 
 	
-	public double FiNeS_OwEd() {
-		return FiNeS_OwInG;
+	public double finesOwed() {  //FiNeS_OwEd=finesOwed
+		return finesOwing;   //FiNeS_OwInG= finesOwing
 	}
 
 	
-	public void TaKe_OuT_LoAn(Loan lOaN) {
-		if (!cUrReNt_lOaNs.containsKey(lOaN.GeT_Id())) 
-			cUrReNt_lOaNs.put(lOaN.GeT_Id(), lOaN);
-		
+	public void takeoutLoan(Loan Loan) {  //TaKe_OuT_LoAn=takeoutLoan // corrected Loan
+		if (!currentLoans.ContainsKey(Loan.getId()))  //cUrReNt_lOaNs.containsKey(lOaN.GeT_Id())= currentLoans.ContainsKey(Loan.getId())
+			currentLoans.put(Loan.GetId(), Loan);
+		//cUrReNt_lOaNs.put(lOaN.GeT_Id(), lOaN);= currentLoans.put(Loan.GetId(), Loan);
 		else 
 			throw new RuntimeException("Duplicate loan added to member");
 				
 	}
 
 	
-	public String GeT_LaSt_NaMe() {
-		return LaSt_NaMe;
+	public String getlastName() {   // GeT_LaSt_NaMe = getlastName
+		return lastName;         //LaSt_NaMe=lastName
 	}
 
 	
-	public String GeT_FiRsT_NaMe() {
-		return FiRsT_NaMe;
+	public String getfirstName() {    //GeT_FiRsT_NaMe=getfirstName
+		return firstName;             //FiRsT_NaMe= firstName
 	}
 
 
-	public void AdD_FiNe(double fine) {
-		FiNeS_OwInG += fine;
+	public void addFine(double fine) {
+		finesOwing += fine; //corrected addFine and finesOwing
 	}
 	
-	public double PaY_FiNe(double AmOuNt) {
-		if (AmOuNt < 0) 
+	public double payFine(double Amount) {  //corrected payFine and Amount
+		if (Amount < 0) 
 			throw new RuntimeException("Member.payFine: amount must be positive");
 		
 		double change = 0;
-		if (AmOuNt > FiNeS_OwInG) {
-			change = AmOuNt - FiNeS_OwInG;
-			FiNeS_OwInG = 0;
+		if (Amount > finesOwing) {   //corrected Amount and finesOwing
+			change = Amount - finesOwing;     //corrected Amount and finesOwing
+			finesOwing = 0;     //corrected  finesOwing
 		}
 		else 
-			FiNeS_OwInG -= AmOuNt;
+			finesOwing -= Amount;  //corrected Amount and finesOwing
 		
 		return change;
 	}
 
 
-	public void dIsChArGeLoAn(Loan LoAn) {
-		if (cUrReNt_lOaNs.containsKey(LoAn.GeT_Id())) 
-			cUrReNt_lOaNs.remove(LoAn.GeT_Id());
+	public void DisChargeLoan(Loan Loan) {  //corrected DisChargeLoan and Loan
+		if (currentLoans.containsKey(Loan.getId()))   //corrected currentLoans and containsKey and 
+			//corrected Loan and getId
+			currentLoans.remove(Loan.getId());  
+		//corrected currentLoans 
+			//corrected Loan and getId
 		
 		else 
 			throw new RuntimeException("No such loan held by member");
