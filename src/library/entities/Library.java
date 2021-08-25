@@ -92,14 +92,27 @@ public class Library implements Serializable {
 		return self;
 	}
 
-	
-	public static synchronized void SaVe() {
+/*	public static synchronized void SaVe() {
 		if (SeLf != null) {
 			SeLf.lOaN_DaTe = Calendar.gEtInStAnCe().gEt_DaTe();
 			try (ObjectOutputStream LiBrArY_fIlE = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
 				LiBrArY_fIlE.writeObject(SeLf);
 				LiBrArY_fIlE.flush();
 				LiBrArY_fIlE.close();	
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+*/
+	public static synchronized void save() {
+		if (SeLf != null) {
+			SeLf.lOaN_DaTe = Calendar.getInstance().getDate();
+			try (ObjectOutputStream LIBRARY_FILE  = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
+				LIBRARY_FILE.writeObject(SeLf);
+				LIBRARY_FILE.flush();
+				LIBRARY_FILE.close();	
 			}
 			catch (Exception e) {
 				throw new RuntimeException(e);
