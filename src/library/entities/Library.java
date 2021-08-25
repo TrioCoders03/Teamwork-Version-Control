@@ -73,15 +73,15 @@ public class Library implements Serializable {
 		return SeLf;
 	}
 */
-	public static synchronized Library GeTiNsTaNcE() {		
+	public static synchronized Library getInstance() {		
 		if (self == null) {
 			Path PATH = Paths.get(LIBRARY_FILE);			
 			if (Files.exists(PATH)) {	
-				try (ObjectInputStream LiBrArY_FiLe = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
+				try (ObjectInputStream LIBRARY_FILE  = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
 			    
-					self = (Library) LiBrArY_FiLe.readObject();
-					Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
-					LiBrArY_FiLe.close();
+					self = (Library) LIBRARY_FILE.readObject();
+					Calendar.getInstance().setDate(self.loanDate);
+					LIBRARY_FILE.close();
 				}
 				catch (Exception e) {
 					throw new RuntimeException(e);
@@ -92,8 +92,7 @@ public class Library implements Serializable {
 		return self;
 	}
 
-	
-	public static synchronized void SaVe() {
+/*	public static synchronized void SaVe() {
 		if (SeLf != null) {
 			SeLf.lOaN_DaTe = Calendar.gEtInStAnCe().gEt_DaTe();
 			try (ObjectOutputStream LiBrArY_fIlE = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
@@ -106,45 +105,59 @@ public class Library implements Serializable {
 			}
 		}
 	}
-
-	
-	public int gEt_BoOkId() {
-		return bOoK_Id;
-	}
-	
-	
-	public int gEt_MeMbEr_Id() {
-		return mEmBeR_Id;
-	}
-	
-	
-	private int gEt_NeXt_BoOk_Id() {
-		return bOoK_Id++;
-	}
-
-	
-	private int gEt_NeXt_MeMbEr_Id() {
-		return mEmBeR_Id++;
+*/
+	public static synchronized void save() {
+		if (SeLf != null) {
+			SeLf.lOaN_DaTe = Calendar.getInstance().getDate();
+			try (ObjectOutputStream LIBRARY_FILE  = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
+				LIBRARY_FILE.writeObject(SeLf);
+				LIBRARY_FILE.flush();
+				LIBRARY_FILE.close();	
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	
-	private int gEt_NeXt_LoAn_Id() {
-		return lOaN_Id++;
+	public int getBookId() {	//gEt_BoOkId() 
+		return bookId;		//bOoK_Id()
+	}
+	
+	
+	public int getMemberId() {	//gEt_MeMbEr_Id()
+		return memberId;	//mEmBeR_Id()
+	}
+	
+	
+	private int getNextBookId() {	//gEt_NeXt_BoOk_Id()
+		return bookId++;	//bOoK_Id()
 	}
 
 	
-	public List<Member> lIsT_MeMbErS() {		
-		return new ArrayList<Member>(MeMbErS.values()); 
+	private int getNextMemberId() {	//gEt_NeXt_MeMbEr_Id()
+		return memberId++;	//mEmBeR_Id()
+	}
+
+	
+	private int getNextLoanId() {	//gEt_NeXt_loanId()
+		return loanId++;	//lOaN_Id()
+	}
+
+	
+	public List<Member> listMembers() {				//lIsT_MeMbErS()
+		return new ArrayList<Member>(members.values()); 	//return new ArrayList<Member>(MeMbErS.values()); 
 	}
 
 
-	public List<Book> lIsT_BoOkS() {		
-		return new ArrayList<Book>(CaTaLoG.values()); 
+	public List<Book> listBooks() {					//lIsT_BoOkS()
+		return new ArrayList<Book>(catalog.values()); 		//return new ArrayList<Book>(CaTaLoG.values()); 
 	}
 
 
-	public List<Loan> lISt_CuRrEnT_LoAnS() {
-		return new ArrayList<Loan>(CuRrEnT_LoAnS.values());
+	public List<Loan> listCurrentLoans() {				//lISt_CuRrEnT_LoAnS()
+		return new ArrayList<Loan>(currentLoans.values());	//return new ArrayList<Loan>(CuRrEnT_LoAnS.values());
 	}
 
 
