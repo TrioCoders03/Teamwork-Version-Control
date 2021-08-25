@@ -5,91 +5,94 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Book implements Serializable {
 	
-	private String tItLe;
-	private String AuThOr;
-	private String CALLNO;
-	private int iD;
+	private String title;  //private String tItLe
+	private String athor;  //private String AuThOr;
+	private String callNo;  //private String CALLNO;
+	private int id;         //private int iD;
 	
-	private enum sTaTe { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
-	private sTaTe StAtE;
+	private enum State { AVAILABLE, ONLOAN, DAMAGED, RESERVED }; //private enum sTaTe { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
+	private State state;    //private sTaTe StAtE;
 	
 	
 	public Book(String author, String title, String callNo, int id) {
-		this.AuThOr = author;
-		this.tItLe = title;
-		this.CALLNO = callNo;
-		this.iD = id;
-		this.StAtE = sTaTe.AVAILABLE;
+		this.author = author;       //this.AuThOr = author;
+		this.title = title;       // tITle
+		this.callNo = callNo;      // this.CALLNO
+		this.id = id;             //this.iD = id;
+		this.state = State.Available;  //STate = sTaTe.AVAILABLE
 	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Book: ").append(iD).append("\n")
-		  .append("  Title:  ").append(tItLe).append("\n")
-		  .append("  Author: ").append(AuThOr).append("\n")
-		  .append("  CallNo: ").append(CALLNO).append("\n")
-		  .append("  State:  ").append(StAtE);
+		sb.append("Book: ").append(Id).append("\n")           //changed iD
+		  .append("  Title:  ").append(title).append("\n")    //tItLe
+		  .append("  Author: ").append(author).append("\n")   //AuThOr
+		  .append("  CallNo: ").append(callNo).append("\n")   //CALLNO
+		  .append("  State:  ").append(state);                //StAtE
 		
 		return sb.toString();
 	}
 
-	public Integer gEtId() {
-		return iD;
+	public Integer getId() {   //change gEtId
+		return id;         //return iD
 	}
 
-	public String gEtTiTlE() {
-		return tItLe;
+	public String getTitle() {      // change gEtTiTlE
+		return title;          //return tItLe;
 	}
 
 
 	
-	public boolean iS_AvAiLaBlE() {
-		return StAtE == sTaTe.AVAILABLE;
+	public boolean isAvailable() {  //public boolean iS_AvAiLaBlE()
+		return state == state.AVAILABLE;  //return State == Sate.AVAILABLE;
+	}
+
+		return state == state.AVAILABLE      //return StAtE == sTaTe.AVAILABLE;
 	}
 
 	
-	public boolean iS_On_LoAn() {
-		return StAtE == sTaTe.ON_LOAN;
+	public boolean isOnLoan() {           //boolean iS_On_LoAn()
+		return state == state.ONLOAN;       //return StAtE == sTaTe.ON_LOAN
+	}
+
+
+	public boolean isDamaged() {                //public boolean iS_DaMaGeD
+		return state == state.DAMAGED;   //return StAtE == sTaTe.DAMAGED;
 	}
 
 	
-	public boolean iS_DaMaGeD() {
-		return StAtE == sTaTe.DAMAGED;
-	}
-
-	
-	public void BoRrOw() {
-		if (StAtE.equals(sTaTe.AVAILABLE)) 
-			StAtE = sTaTe.ON_LOAN;
+	public void borrow() {        //void BoRrOw
+		if (state.equals(state.AVAILABLE))    //if (StAtE.equals(sTaTe.AVAILABLE))
+			state = state.ONLOAN;          //StAtE = sTaTe.ON_LOAN;
 		
 		else 
-			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", StAtE));
+			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", State));  //StAtE
 		
 		
 	}
 
 
-	public void ReTuRn(boolean DaMaGeD) {
-		if (StAtE.equals(sTaTe.ON_LOAN)) 
-			if (DaMaGeD) 
-				StAtE = sTaTe.DAMAGED;
+	public void return(Boolean DAMAGED) {     //public void ReTuRn(boolean DaMaGeD)
+		if (state.equals(State.ONLOAN))    //if (StAtE.equals(sTaTe.ON_LOAN)) 
+			if (DAMAGED)                 //if (DaMaGeD)
+				state = state.DAMAGED;  //StAtE = sTaTe.DAMAGED;
 			
 			else 
-				StAtE = sTaTe.AVAILABLE;
+				state = state.AVAILABLE;    //StAtE = sTaTe.DAMAGED;
 			
 		
 		else 
-			throw new RuntimeException(String.format("Book: cannot Return while book is in state: %s", StAtE));
+			throw new RuntimeException(String.format("Book: cannot Return while book is in state: %s", State));    //StAtE
 				
 	}
 
 	
-	public void RePaIr() {
-		if (StAtE.equals(sTaTe.DAMAGED)) 
-			StAtE = sTaTe.AVAILABLE;
+	public void repair() {                   //void RePaIr
+		if (state.equals(state.DAMAGED))   //if (StAtE.equals(sTaTe.DAMAGED)) 
+			state = state.AVAILABLE;    //StAtE = sTaTe.AVAILABLE
 		
 		else 
-			throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", StAtE));
+			throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", State));   ///StAtE
 		
 	}
 
