@@ -1,3 +1,8 @@
+// Author: Jeel
+// Mediator: Mariam
+// Reviewer: Prakriti
+
+
 package library.entities;
 
 import java.io.FileInputStream;
@@ -17,38 +22,38 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class Library implements Serializable {
 	
-	private static final String lIbRaRyFiLe = "library.obj";
-	private static final int lOaNlImIt = 2;
-	private static final int loanPeriod = 2;
-	private static final double FiNe_PeR_DaY = 1.0;
-	private static final double maxFinesOwed = 1.0;
-	private static final double damageFee = 2.0;
+	private static final String LIBRARY_FILE = "library.obj";  	//private static final String lIbRaRyFiLe = "library.obj";
+	private static final int LOAN_LIMIT = 2;       			//private static final int lOaNlImIt = 2;
+	private static final int LOAN_PERIOD = 2;			//private static final int loanPeriod = 2;
+	private static final double FINE_PER_DAY = 1.0;			//private static final double FiNe_PeR_DaY = 1.0;	
+	private static final double MAX_FINES_OWED = 1.0;		//private static final double maxFinesOwed = 1.0;
+	private static final double DAMAGE_FEE = 2.0;			//private static final double damageFee = 2.0;
 	
-	private static Library SeLf;
-	private int bOoK_Id;
-	private int mEmBeR_Id;
-	private int lOaN_Id;
-	private Date lOaN_DaTe;
+	private static Library self;					//private static Library SeLf;			
+	private int bookId;						//private int bOoK_Id;	
+	private int memberId;						//private int mEmBeR_Id;
+	private int loanId;						//private int lOaN_Id;
+	private Date loanDate;						//private Date lOaN_DaTe;
 	
-	private Map<Integer, Book> CaTaLoG;
-	private Map<Integer, Member> MeMbErS;
-	private Map<Integer, Loan> LoAnS;
-	private Map<Integer, Loan> CuRrEnT_LoAnS;
-	private Map<Integer, Book> DaMaGeD_BoOkS;
+	private Map<Integer, Book> catalog;			//CaTaLoG
+	private Map<Integer, Member> members;			//MeMbErS
+	private Map<Integer, Loan> loans;			//LoAnS
+	private Map<Integer, Loan> currentLoans;		//CuRrEnT_LoAnS
+	private Map<Integer, Book> damagedBooks;		//DaMaGeD_BoOkS
 	
 
 	private Library() {
-		CaTaLoG = new HashMap<>();
-		MeMbErS = new HashMap<>();
-		LoAnS = new HashMap<>();
-		CuRrEnT_LoAnS = new HashMap<>();
-		DaMaGeD_BoOkS = new HashMap<>();
-		bOoK_Id = 1;
-		mEmBeR_Id = 1;		
-		lOaN_Id = 1;		
+		catalog = new HashMap<>();			//CaTaLoG
+		members = new HashMap<>();			//MeMbErS
+		loans = new HashMap<>();			//LoAnS
+		currentLoans = new HashMap<>();		//CuRrEnT_LoAnS
+		damagedBooks = new HashMap<>();		//DaMaGeD_BoOkS
+		bookId = 1;				//bOoK_Id = 1;
+		memberId = 1;				//mEmBeR_Id = 1;	
+		loanId = 1;				//lOaN_Id = 1;	
 	}
 
-	
+/*
 	public static synchronized Library GeTiNsTaNcE() {		
 		if (SeLf == null) {
 			Path PATH = Paths.get(lIbRaRyFiLe);			
@@ -67,9 +72,27 @@ public class Library implements Serializable {
 		}
 		return SeLf;
 	}
+*/
+	public static synchronized Library getInstance() {		
+		if (self == null) {
+			Path PATH = Paths.get(LIBRARY_FILE);			
+			if (Files.exists(PATH)) {	
+				try (ObjectInputStream LIBRARY_FILE  = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
+			    
+					self = (Library) LIBRARY_FILE.readObject();
+					Calendar.getInstance().setDate(self.loanDate);
+					LIBRARY_FILE.close();
+				}
+				catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else self = new Library();
+		}
+		return self;
+	}
 
-	
-	public static synchronized void SaVe() {
+/*	public static synchronized void SaVe() {
 		if (SeLf != null) {
 			SeLf.lOaN_DaTe = Calendar.gEtInStAnCe().gEt_DaTe();
 			try (ObjectOutputStream LiBrArY_fIlE = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
@@ -82,45 +105,59 @@ public class Library implements Serializable {
 			}
 		}
 	}
-
-	
-	public int gEt_BoOkId() {
-		return bOoK_Id;
-	}
-	
-	
-	public int gEt_MeMbEr_Id() {
-		return mEmBeR_Id;
-	}
-	
-	
-	private int gEt_NeXt_BoOk_Id() {
-		return bOoK_Id++;
-	}
-
-	
-	private int gEt_NeXt_MeMbEr_Id() {
-		return mEmBeR_Id++;
+*/
+	public static synchronized void save() {
+		if (SeLf != null) {
+			SeLf.lOaN_DaTe = Calendar.getInstance().getDate();
+			try (ObjectOutputStream LIBRARY_FILE  = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
+				LIBRARY_FILE.writeObject(SeLf);
+				LIBRARY_FILE.flush();
+				LIBRARY_FILE.close();	
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	
-	private int gEt_NeXt_LoAn_Id() {
-		return lOaN_Id++;
+	public int getBookId() {	//gEt_BoOkId() 
+		return bookId;		//bOoK_Id()
+	}
+	
+	
+	public int getMemberId() {	//gEt_MeMbEr_Id()
+		return memberId;	//mEmBeR_Id()
+	}
+	
+	
+	private int getNextBookId() {	//gEt_NeXt_BoOk_Id()
+		return bookId++;	//bOoK_Id()
 	}
 
 	
-	public List<Member> lIsT_MeMbErS() {		
-		return new ArrayList<Member>(MeMbErS.values()); 
+	private int getNextMemberId() {	//gEt_NeXt_MeMbEr_Id()
+		return memberId++;	//mEmBeR_Id()
+	}
+
+	
+	private int getNextLoanId() {	//gEt_NeXt_loanId()
+		return loanId++;	//lOaN_Id()
+	}
+
+	
+	public List<Member> listMembers() {				//lIsT_MeMbErS()
+		return new ArrayList<Member>(members.values()); 	//return new ArrayList<Member>(MeMbErS.values()); 
 	}
 
 
-	public List<Book> lIsT_BoOkS() {		
-		return new ArrayList<Book>(CaTaLoG.values()); 
+	public List<Book> listBooks() {					//lIsT_BoOkS()
+		return new ArrayList<Book>(catalog.values()); 		//return new ArrayList<Book>(CaTaLoG.values()); 
 	}
 
 
-	public List<Loan> lISt_CuRrEnT_LoAnS() {
-		return new ArrayList<Loan>(CuRrEnT_LoAnS.values());
+	public List<Loan> listCurrentLoans() {				//lISt_CuRrEnT_LoAnS()
+		return new ArrayList<Loan>(currentLoans.values());	//return new ArrayList<Loan>(CuRrEnT_LoAnS.values());
 	}
 
 

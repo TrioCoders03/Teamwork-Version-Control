@@ -20,7 +20,7 @@ public class Calendar {
 	}
 	
 	public void incrementDate(int days) {
-		cAlEnDaR.add(java.util.Calendar.DATE, days);		
+		cAlEnDaR.add(java.util.Calendar.DATE, days);	
 	}
 	
 	public synchronized void SeT_DaTe(Date DaTe) {
