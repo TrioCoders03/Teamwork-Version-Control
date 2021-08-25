@@ -43,11 +43,11 @@ public class Library implements Serializable {
 	
 
 	private Library() {
-		CaTaLoG = new HashMap<>();
-		MeMbErS = new HashMap<>();
-		LoAnS = new HashMap<>();
-		CuRrEnT_LoAnS = new HashMap<>();
-		DaMaGeD_BoOkS = new HashMap<>();
+		catalog = new HashMap<>();			//CaTaLoG
+		members = new HashMap<>();			//MeMbErS
+		loans = new HashMap<>();			//LoAnS
+		currentLoans = new HashMap<>();		//CuRrEnT_LoAnS
+		damagedBooks = new HashMap<>();		//DaMaGeD_BoOkS
 		bookId = 1;				//bOoK_Id = 1;
 		memberId = 1;				//mEmBeR_Id = 1;	
 		loanId = 1;				//lOaN_Id = 1;	
