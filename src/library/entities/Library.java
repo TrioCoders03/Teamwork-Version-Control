@@ -161,23 +161,23 @@ public class Library implements Serializable {
 	}
 
 
-	public Member aDd_MeMbEr(String lastName, String firstName, String email, int phoneNo) {		
-		Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_MeMbEr_Id());
-		MeMbErS.put(member.GeT_ID(), member);		
+	public Member addMember(String lastName, String firstName, String email, int phoneNo) {		//aDd_MeMbEr
+		Member member = new Member(lastName, firstName, email, phoneNo, getNextMemberId());	//gEt_NeXt_MeMbEr_Id
+		members.put(member.getId(), member);							//GeT_ID & MeMbErS
 		return member;
 	}
 
 	
-	public Book aDd_BoOk(String a, String t, String c) {		
-		Book b = new Book(a, t, c, gEt_NeXt_BoOk_Id());
-		CaTaLoG.put(b.gEtId(), b);		
+	public Book addBook(String a, String t, String c) {			//aDd_BoOk
+		Book b = new Book(a, t, c, getNextBookId());			//gEt_NeXt_BoOk_Id
+		catalog.put(b.getId(), b);					//CaTaLoG & gEtId
 		return b;
 	}
 
 	
-	public Member gEt_MeMbEr(int memberId) {
-		if (MeMbErS.containsKey(memberId)) 
-			return MeMbErS.get(memberId);
+	public Member getMember(int memberId) {			//gEt_MeMbEr
+		if (members.containsKey(memberId)) 		//MeMbErS
+			return members.get(memberId);		//MeMbErS
 		return null;
 	}
 
