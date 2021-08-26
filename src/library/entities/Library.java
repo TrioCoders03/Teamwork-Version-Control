@@ -161,48 +161,48 @@ public class Library implements Serializable {
 	}
 
 
-	public Member aDd_MeMbEr(String lastName, String firstName, String email, int phoneNo) {		
-		Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_MeMbEr_Id());
-		MeMbErS.put(member.GeT_ID(), member);		
+	public Member addMember(String lastName, String firstName, String email, int phoneNo) {		//aDd_MeMbEr
+		Member member = new Member(lastName, firstName, email, phoneNo, getNextMemberId());	//gEt_NeXt_MeMbEr_Id
+		members.put(member.getId(), member);							//GeT_ID & MeMbErS
 		return member;
 	}
 
 	
-	public Book aDd_BoOk(String a, String t, String c) {		
-		Book b = new Book(a, t, c, gEt_NeXt_BoOk_Id());
-		CaTaLoG.put(b.gEtId(), b);		
+	public Book addBook(String a, String t, String c) {			//aDd_BoOk
+		Book b = new Book(a, t, c, getNextBookId());			//gEt_NeXt_BoOk_Id
+		catalog.put(b.getId(), b);					//CaTaLoG & gEtId
 		return b;
 	}
 
 	
-	public Member gEt_MeMbEr(int memberId) {
-		if (MeMbErS.containsKey(memberId)) 
-			return MeMbErS.get(memberId);
+	public Member getMember(int memberId) {			//gEt_MeMbEr
+		if (members.containsKey(memberId)) 		//MeMbErS
+			return members.get(memberId);		//MeMbErS
 		return null;
 	}
 
 	
-	public Book gEt_BoOk(int bookId) {
-		if (CaTaLoG.containsKey(bookId)) 
-			return CaTaLoG.get(bookId);		
+	public Book getBook(int bookId) {			//gEt_BoOk
+		if (catalog.containsKey(bookId)) 		//CaTaLoG
+			return catalog.get(bookId);		//CaTaLoG
 		return null;
 	}
 
 	
-	public int gEt_LoAn_LiMiT() {
-		return lOaNlImIt;
+	public int getLoanLimit() {		//gEt_LoAn_LiMiT
+		return LOAN_LIMIT;		//lOaNlImIt
 	}
 
 	
-	public boolean cAn_MeMbEr_BoRrOw(Member member) {		
-		if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == lOaNlImIt ) 
+	public boolean canMemberBorrow(Member member) {			//cAn_MeMbEr_BoRrOw
+		if (member.getNumberOfCurrentLoans() == LOAN_LIMIT ) 	//gEt_nUmBeR_Of_CuRrEnT_LoAnS & lOaNlImIt
 			return false;
 				
-		if (member.FiNeS_OwEd() >= maxFinesOwed) 
+		if (member.finesOwed() >= maxFinesOwed) 		//FiNeS_OwEd
 			return false;
 				
-		for (Loan loan : member.GeT_LoAnS()) 
-			if (loan.Is_OvEr_DuE()) 
+		for (Loan loan : member.getLoans()) 			//GeT_LoAnS
+			if (loan.isOverDue()) 				//Is_OvEr_DuE
 				return false;
 			
 		return true;
