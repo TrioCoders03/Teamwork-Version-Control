@@ -209,35 +209,35 @@ public class Library implements Serializable {
 	}
 
 	
-	public int gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(Member MeMbEr) {		
-		return lOaNlImIt - MeMbEr.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
+	public int getNumberOfLoansRemainingForMember(Member member) {	//gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr	
+		return LOAN_LIMIT - member.getNumberOfCurrentLoans();	//lOaNlImIt & MeMbEr & gEt_nUmBeR_Of_CuRrEnT_LoAnS
 	}
 
 	
-	public Loan iSsUe_LoAn(Book book, Member member) {
-		Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(loanPeriod);
-		Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
-		member.TaKe_OuT_LoAn(loan);
-		book.BoRrOw();
-		LoAnS.put(loan.GeT_Id(), loan);
-		CuRrEnT_LoAnS.put(book.gEtId(), loan);
+	public Loan issueLoan(Book book, Member member) {				//iSsUe_LoAn
+		Date dueDate = Calendar.getInstance().getDueDate(loanPeriod);		//gEtInStAnCe & gEt_DuE_DaTe
+		Loan loan = new Loan(getNextLoanId(), book, member, dueDate);		//gEt_NeXt_LoAn_Id
+		member.takeOutLoan(loan);						//TaKe_OuT_LoAn
+		book.borrow();								//BoRrOw
+		loans.put(loan.getId(), loan);						//GeT_Id
+		currentLoans.put(book.getId(), loan);					//CuRrEnT_LoAnS & gEtId
 		return loan;
 	}
 	
 	
-	public Loan GeT_LoAn_By_BoOkId(int bookId) {
-		if (CuRrEnT_LoAnS.containsKey(bookId)) 
-			return CuRrEnT_LoAnS.get(bookId);
+	public Loan getLoanByBookId(int bookId) {			//GeT_LoAn_By_BoOkId
+		if (currentLoans.containsKey(bookId)) 			//CuRrEnT_LoAnS
+			return currentLoans.get(bookId);		//CuRrEnT_LoAnS
 		
 		return null;
 	}
 
 	
-	public double CaLcUlAtE_OvEr_DuE_FiNe(Loan LoAn) {
-		if (LoAn.Is_OvEr_DuE()) {
-			long DaYs_OvEr_DuE = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(LoAn.GeT_DuE_DaTe());
-			double fInE = DaYs_OvEr_DuE * FiNe_PeR_DaY;
-			return fInE;
+	public double calculateOverDueFine(Loan loan) {								//CaLcUlAtE_OvEr_DuE_FiNe & LoAn
+		if (loan.isOverDue()) {										//LoAn & Is_OvEr_DuE
+			long daysOverDue  = Calendar.getInstance().getDaysDifference(loan.getDueDate());		//DaYs_OvEr_DuE & gEtInStAnCe & GeT_DaYs_DiFfErEnCe & GeT_DuE_DaTe
+			double fInE = daysOverDue * finePerDay;							//fInE & DaYs_OvEr_DuE & FiNe_PeR_DaY
+			return fInE;											//fInE
 		}
 		return 0.0;		
 	}
