@@ -182,27 +182,27 @@ public class Library implements Serializable {
 	}
 
 	
-	public Book gEt_BoOk(int bookId) {
-		if (CaTaLoG.containsKey(bookId)) 
-			return CaTaLoG.get(bookId);		
+	public Book getBook(int bookId) {			//gEt_BoOk
+		if (catalog.containsKey(bookId)) 		//CaTaLoG
+			return catalog.get(bookId);		//CaTaLoG
 		return null;
 	}
 
 	
-	public int gEt_LoAn_LiMiT() {
-		return lOaNlImIt;
+	public int getLoanLimit() {		//gEt_LoAn_LiMiT
+		return LOAN_LIMIT;		//lOaNlImIt
 	}
 
 	
-	public boolean cAn_MeMbEr_BoRrOw(Member member) {		
-		if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == lOaNlImIt ) 
+	public boolean canMemberBorrow(Member member) {			//cAn_MeMbEr_BoRrOw
+		if (member.getNumberOfCurrentLoans() == LOAN_LIMIT ) 	//gEt_nUmBeR_Of_CuRrEnT_LoAnS & lOaNlImIt
 			return false;
 				
-		if (member.FiNeS_OwEd() >= maxFinesOwed) 
+		if (member.finesOwed() >= maxFinesOwed) 		//FiNeS_OwEd
 			return false;
 				
-		for (Loan loan : member.GeT_LoAnS()) 
-			if (loan.Is_OvEr_DuE()) 
+		for (Loan loan : member.getLoans()) 			//GeT_LoAnS
+			if (loan.isOverDue()) 				//Is_OvEr_DuE
 				return false;
 			
 		return true;
