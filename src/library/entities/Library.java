@@ -233,37 +233,37 @@ public class Library implements Serializable {
 	}
 
 	
-	public double CaLcUlAtE_OvEr_DuE_FiNe(Loan LoAn) {
-		if (LoAn.Is_OvEr_DuE()) {
-			long DaYs_OvEr_DuE = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(LoAn.GeT_DuE_DaTe());
-			double fInE = DaYs_OvEr_DuE * FiNe_PeR_DaY;
-			return fInE;
+	public double calculateOverDueFine(Loan loan) {								//CaLcUlAtE_OvEr_DuE_FiNe & LoAn
+		if (loan.isOverDue()) {										//LoAn & Is_OvEr_DuE
+			long daysOverDue  = Calendar.getInstance().getDaysDifference(loan.getDueDate());		//DaYs_OvEr_DuE & gEtInStAnCe & GeT_DaYs_DiFfErEnCe & GeT_DuE_DaTe
+			double fInE = daysOverDue * finePerDay;							//fInE & DaYs_OvEr_DuE & FiNe_PeR_DaY
+			return fInE;											//fInE
 		}
 		return 0.0;		
 	}
 
 
-	public void DiScHaRgE_LoAn(Loan cUrReNt_LoAn, boolean iS_dAmAgEd) {
-		Member mEmBeR = cUrReNt_LoAn.GeT_MeMbEr();
-		Book bOoK  = cUrReNt_LoAn.GeT_BoOk();
+	public void dischargeLoan(Loan currentLoan, boolean isDamaged) { 		//DiScHaRgE_LoAn & cUrReNt_LoAn & iS_dAmAgEd
+		Member member  = currentLoan.getMember();				//mEmBeR & cUrReNt_LoAn & GeT_MeMbEr
+		Book book  = currentLoan.getBook();					//bOoK & cUrReNt_LoAn & GeT_BoOk
 		
-		double oVeR_DuE_FiNe = CaLcUlAtE_OvEr_DuE_FiNe(cUrReNt_LoAn);
-		mEmBeR.AdD_FiNe(oVeR_DuE_FiNe);	
+		double overDueFine  = calculateOverDueFine(currentLoan); 		//oVeR_DuE_FiNe & CaLcUlAtE_OvEr_DuE_FiNe & cUrReNt_LoAn
+		member.(overDueFine);							// mEmBeR. (oVeR_DuE_FiNe)
 		
-		mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
-		bOoK.ReTuRn(iS_dAmAgEd);
-		if (iS_dAmAgEd) {
-			mEmBeR.AdD_FiNe(damageFee);
-			DaMaGeD_BoOkS.put(bOoK.gEtId(), bOoK);
+		member.dischargeLoan(currentLoan);			//mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
+		book.return(isDamaged);					//bOoK.ReTuRn(iS_dAmAgEd);
+		if (isDamaged) {					//iS_dAmAgEd
+			member.addFine(damageFee);			//EmBeR.AdD_FiNe(damageFee);
+			damagedBooks.put(book.getId(), book);		//DaMaGeD_BoOkS & bOoK & gEtId
 		}
-		cUrReNt_LoAn.DiScHaRgE();
-		CuRrEnT_LoAnS.remove(bOoK.gEtId());
+		currentLoan.discharge();				//cUrReNt_LoAn & DiScHaRgE 
+		currentLoans.remove(book.getId());			//CuRrEnT_LoAnS & bOoK & gEtId
 	}
 
 
-	public void cHeCk_CuRrEnT_LoAnS() {
-		for (Loan lOaN : CuRrEnT_LoAnS.values()) 
-			lOaN.cHeCk_OvEr_DuE();
+	public void checkCurrentLoans() {				//cHeCk_CuRrEnT_LoAnS
+		for (Loan loan : currentLoans.values()) 		//lOaN & CuRrEnT_LoAnS
+			loan.checkOverDue();				//cHeCk_OvEr_DuE & lOaN
 				
 	}
 
