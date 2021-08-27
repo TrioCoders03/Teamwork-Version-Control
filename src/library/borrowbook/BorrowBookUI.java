@@ -40,22 +40,22 @@ public class BorrowBookUI {
 	}
 
 	
-	public void RuN() {
-		OuTpUt("Borrow Book Use Case UI\n");
+	public void run() {				//RuN
+		output("Borrow Book Use Case UI\n");	//OuTpUt
 		
 		while (true) {
 			
-			switch (StaTe) {			
+			switch (state) {	//StaTe	
 			
 			case CANCELLED:
-				OuTpUt("Borrowing Cancelled");
+				output("Borrowing Cancelled");	//OuTpUt
 				return;
 
 				
 			case READY:
-				String MEM_STR = iNpUT("Swipe member card (press <enter> to cancel): ");
-				if (MEM_STR.length() == 0) {
-					CoNtRoL.CaNcEl();
+				String memberString = input("Swipe member card (press <enter> to cancel): "); 	//MEM_STR change to memberString becasue it is string  & iNpUT
+				if (memberString.length() == 0) {		//MEM_STR
+					control.cancel();			//CoNtRoL & CaNcEl
 					break;
 				}
 				try {
