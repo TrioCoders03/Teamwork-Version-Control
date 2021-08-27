@@ -1,3 +1,7 @@
+// Author: Jeel  (I updated some of the content of the file as reviewer told me through mediator)
+// Mediator: Mariam
+// Reviewer: Prakriti 
+
 package library.borrowbook;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,23 +11,23 @@ import library.entities.Library;
 import library.entities.Loan;
 import library.entities.Member;
 
-public class bORROW_bOOK_cONTROL {
+public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 	
-	private BorrowBookUI uI;
+	private BorrowBookUI ui;	//uI
 	
-	private Library lIbRaRy;
-	private Member mEmBeR;
-	private enum CONTROL_STATE { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
-	private CONTROL_STATE sTaTe;
+	private Library library;	//lIbRaRy
+	private Member member;		//mEmBeR
+	private enum ControlState { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };  //CONTROL_STATE
+	private ControlState state;	//CONTROL_STATE & sTaTe
 	
-	private List<Book> pEnDiNg_LiSt;
-	private List<Loan> cOmPlEtEd_LiSt;
-	private Book bOoK;
+	private List<Book> pendingList;	//pEnDiNg_LiSt
+	private List<Loan> completedList;	//cOmPlEtEd_LiSt
+	private Book book;			//bOoK
 	
 	
-	public bORROW_bOOK_cONTROL() {
-		this.lIbRaRy = Library.GeTiNsTaNcE();
-		sTaTe = CONTROL_STATE.INITIALISED;
+	public BorrowBookControl() {			//bORROW_bOOK_cONTROL
+		this.library = Library.getInstance();	//lIbRaRy & GeTiNsTaNcE
+		state = ControlState.INITIALISED;	//sTaTe & CONTROL_STATE
 	}
 	
 
