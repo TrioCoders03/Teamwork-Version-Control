@@ -1,21 +1,26 @@
+// Author: Jeel  (I updated some of the content of the file as reviewer told me through mediator)
+// Mediator: Mariam
+// Reviewer: Prakriti 
+
+
 package library.borrowbook;
 import java.util.Scanner;
 
 
 public class BorrowBookUI {
 	
-	public static enum uI_STaTe { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
+	public static enum UIState  { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };		//uI_STaTe
 
-	private bORROW_bOOK_cONTROL CoNtRoL;
-	private Scanner InPuT;
-	private uI_STaTe StaTe;
+	private BorrowBookControl control;		//bORROW_bOOK_cONTROL & CoNtRoL
+	private Scanner input;				//InPuT
+	private UIState state;				//uI_STaTe & StaTe
 
 	
-	public BorrowBookUI(bORROW_bOOK_cONTROL control) {
-		this.CoNtRoL = control;
-		InPuT = new Scanner(System.in);
-		StaTe = uI_STaTe.INITIALISED;
-		control.SeT_Ui(this);
+	public BorrowBookUI(BorrowBookControl  control) { 	//bORROW_bOOK_cONTROL
+		this.control = control;				//CoNtRoL
+		input = new Scanner(System.in);			//InPuT
+		state = UISTate.INITIALISED;			//StaTe & uI_STaTe
+		control.setUI(this);				//SeT_Ui
 	}
 
 	
