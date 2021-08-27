@@ -24,19 +24,19 @@ public class BorrowBookUI {
 	}
 
 	
-	private String iNpUT(String PrOmPt) {
-		System.out.print(PrOmPt);
-		return InPuT.nextLine();
+	private String input(String prompt) {		//iNpUT & PrOmPt
+		System.out.print(prompt);		//PrOmPt
+		return input.nextLine();		//InPuT
 	}	
 		
 		
-	private void OuTpUt(Object ObJeCt) {
-		System.out.println(ObJeCt);
+	private void output(Object object) {		//OuTpUt & ObJeCt
+		System.out.println(object);		//ObJeCt
 	}
 	
 			
-	public void SeT_StAtE(uI_STaTe StAtE) {
-		this.StaTe = StAtE;
+	public void setState(UIState state) { 	//SeT_StAtE & uI_STaTe & StAtE
+		this.state = state;			//StaTe & StAtE 
 	}
 
 	
