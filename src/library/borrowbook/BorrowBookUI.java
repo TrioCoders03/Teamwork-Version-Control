@@ -1,64 +1,69 @@
+// Author: Jeel  (I updated some of the content of the file as reviewer told me through mediator)
+// Mediator: Mariam
+// Reviewer: Prakriti 
+
+
 package library.borrowbook;
 import java.util.Scanner;
 
 
 public class BorrowBookUI {
 	
-	public static enum uI_STaTe { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
+	public static enum UIState  { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };		//uI_STaTe
 
-	private bORROW_bOOK_cONTROL CoNtRoL;
-	private Scanner InPuT;
-	private uI_STaTe StaTe;
+	private BorrowBookControl control;		//bORROW_bOOK_cONTROL & CoNtRoL
+	private Scanner input;				//InPuT
+	private UIState state;				//uI_STaTe & StaTe
 
 	
-	public BorrowBookUI(bORROW_bOOK_cONTROL control) {
-		this.CoNtRoL = control;
-		InPuT = new Scanner(System.in);
-		StaTe = uI_STaTe.INITIALISED;
-		control.SeT_Ui(this);
+	public BorrowBookUI(BorrowBookControl  control) { 	//bORROW_bOOK_cONTROL
+		this.control = control;				//CoNtRoL
+		input = new Scanner(System.in);			//InPuT
+		state = UISTate.INITIALISED;			//StaTe & uI_STaTe
+		control.setUI(this);				//SeT_Ui
 	}
 
 	
-	private String iNpUT(String PrOmPt) {
-		System.out.print(PrOmPt);
-		return InPuT.nextLine();
+	private String input(String prompt) {		//iNpUT & PrOmPt
+		System.out.print(prompt);		//PrOmPt
+		return input.nextLine();		//InPuT
 	}	
 		
 		
-	private void OuTpUt(Object ObJeCt) {
-		System.out.println(ObJeCt);
+	private void output(Object object) {		//OuTpUt & ObJeCt
+		System.out.println(object);		//ObJeCt
 	}
 	
 			
-	public void SeT_StAtE(uI_STaTe StAtE) {
-		this.StaTe = StAtE;
+	public void setState(UIState state) { 	//SeT_StAtE & uI_STaTe & StAtE
+		this.state = state;			//StaTe & StAtE 
 	}
 
 	
-	public void RuN() {
-		OuTpUt("Borrow Book Use Case UI\n");
+	public void run() {				//RuN
+		output("Borrow Book Use Case UI\n");	//OuTpUt
 		
 		while (true) {
 			
-			switch (StaTe) {			
+			switch (state) {	//StaTe	
 			
 			case CANCELLED:
-				OuTpUt("Borrowing Cancelled");
+				output("Borrowing Cancelled");	//OuTpUt
 				return;
 
 				
 			case READY:
-				String MEM_STR = iNpUT("Swipe member card (press <enter> to cancel): ");
-				if (MEM_STR.length() == 0) {
-					CoNtRoL.CaNcEl();
+				String memberString = input("Swipe member card (press <enter> to cancel): "); 	//MEM_STR change to memberString becasue it is string  & iNpUT
+				if (memberString.length() == 0) {		//MEM_STR
+					control.cancel();			//CoNtRoL & CaNcEl
 					break;
 				}
 				try {
-					int MeMbEr_Id = Integer.valueOf(MEM_STR).intValue();
-					CoNtRoL.SwIpEd(MeMbEr_Id);
+					int memberID = Integer.valueOf(memberString).intValue();	//MeMbEr_Id & MEM_STR 
+					control.swiped(memberID);				//CoNtRoL & SwIpEd & MeMbEr_Id
 				}
-				catch (NumberFormatException e) {
-					OuTpUt("Invalid Member Id");
+				catch (NumberFormatException e) {		
+					output("Invalid Member Id");		//OuTpUt
 				}
 				break;
 
