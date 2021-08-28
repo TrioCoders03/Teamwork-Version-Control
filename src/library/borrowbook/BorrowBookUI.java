@@ -69,54 +69,54 @@ public class BorrowBookUI {
 
 				
 			case RESTRICTED:
-				iNpUT("Press <any key> to cancel");
-				CoNtRoL.CaNcEl();
+				input("Press <any key> to cancel");	//iNpUT
+				control.cancel();			//CoNtRoL &  CaNcEl
 				break;
 			
 				
 			case SCANNING:
-				String BoOk_StRiNg_InPuT = iNpUT("Scan Book (<enter> completes): ");
-				if (BoOk_StRiNg_InPuT.length() == 0) {
-					CoNtRoL.CoMpLeTe();
+				String bookStringInput = input("Scan Book (<enter> completes): ");		//BoOk_StRiNg_InPuT & iNpUT
+				if (bookStringInput.length() == 0) {						//BoOk_StRiNg_InPuT 
+					control.complete();							//CoNtRoL & CoMpLeTe
 					break;
 				}
 				try {
-					int BiD = Integer.valueOf(BoOk_StRiNg_InPuT).intValue();
-					CoNtRoL.ScAnNeD(BiD);
+					int bookID = Integer.valueOf(bookStringInput).intValue();		//BiD & BoOk_StRiNg_InPuT
+					control.scanned(bookID);							//CoNtRoL & ScAnNeD & BiD
 					
-				} catch (NumberFormatException e) {
-					OuTpUt("Invalid Book Id");
+				} catch (NumberFormatException e) {		
+					output("Invalid Book Id");		//OuTpUt
 				} 
 				break;
 					
 				
 			case FINALISING:
-				String AnS = iNpUT("Commit loans? (Y/N): ");
-				if (AnS.toUpperCase().equals("N")) {
-					CoNtRoL.CaNcEl();
+				String answer = input("Commit loans? (Y/N): ");	// AnS & iNpUT
+				if (answer.toUpperCase().equals("N")) {		//AnS  
+					control.cancel();			//CoNtRoL  & CaNcEl
 					
 				} else {
-					CoNtRoL.CoMmIt_LoAnS();
-					iNpUT("Press <any key> to complete ");
+					control.commitLoans();				//CoNtRoL & CoMmIt_LoAnS
+					input("Press <any key> to complete ");		//iNpUT 
 				}
 				break;
 				
 				
 			case COMPLETED:
-				OuTpUt("Borrowing Completed");
+				output("Borrowing Completed");  	//OuTpUt
 				return;
 	
 				
 			default:
-				OuTpUt("Unhandled state");
-				throw new RuntimeException("BorrowBookUI : unhandled state :" + StaTe);			
+				output("Unhandled state");		//OuTpUt
+				throw new RuntimeException("BorrowBookUI : unhandled state :" + state);		//StaTe	
 			}
 		}		
 	}
 
 
-	public void DiSpLaY(Object object) {
-		OuTpUt(object);		
+	public void display(Object object) {	//DiSpLaY
+		output(object);			//OuTpUt
 	}
 
 
