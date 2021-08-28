@@ -1,3 +1,7 @@
+// Author: Jeel  (I updated some of the content of the file as reviewer told me through mediator)
+// Mediator: Mariam
+// Reviewer: Prakriti 
+
 package library.borrowbook;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,59 +11,59 @@ import library.entities.Library;
 import library.entities.Loan;
 import library.entities.Member;
 
-public class bORROW_bOOK_cONTROL {
+public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 	
-	private BorrowBookUI uI;
+	private BorrowBookUI ui;	//uI
 	
-	private Library lIbRaRy;
-	private Member mEmBeR;
-	private enum CONTROL_STATE { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
-	private CONTROL_STATE sTaTe;
+	private Library library;	//lIbRaRy
+	private Member member;		//mEmBeR
+	private enum ControlState { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };  //CONTROL_STATE
+	private ControlState state;	//CONTROL_STATE & sTaTe
 	
-	private List<Book> pEnDiNg_LiSt;
-	private List<Loan> cOmPlEtEd_LiSt;
-	private Book bOoK;
+	private List<Book> pendingList;	//pEnDiNg_LiSt
+	private List<Loan> completedList;	//cOmPlEtEd_LiSt
+	private Book book;			//bOoK
 	
 	
-	public bORROW_bOOK_cONTROL() {
-		this.lIbRaRy = Library.GeTiNsTaNcE();
-		sTaTe = CONTROL_STATE.INITIALISED;
+	public BorrowBookControl() {			//bORROW_bOOK_cONTROL
+		this.library = Library.getInstance();	//lIbRaRy & GeTiNsTaNcE
+		state = ControlState.INITIALISED;	//sTaTe & CONTROL_STATE
 	}
 	
-
-	public void SeT_Ui(BorrowBookUI Ui) {
-		if (!sTaTe.equals(CONTROL_STATE.INITIALISED)) 
+	
+	public void setUi(BorrowBookUI ui) {			//setUi & Ui
+		if (!state.equals(ControlState.INITIALISED)) 	//sTaTe & CONTROL_STATE 
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
 			
-		this.uI = Ui;
-		Ui.SeT_StAtE(BorrowBookUI.uI_STaTe.READY);
-		sTaTe = CONTROL_STATE.READY;		
+		this.ui = ui;			//Ui & uI
+		ui.setState(BorrowBookUI.UiState.READY);	//Ui & SeT_StAtE & uI_STaTe
+		state = ControlState.READY;			//sTaTe & CONTROL_STATE
 	}
 
 		
-	public void SwIpEd(int mEmBeR_Id) {
-		if (!sTaTe.equals(CONTROL_STATE.READY)) 
+	public void swiped(int memberId) {			//SwIpEd & mEmBeR_Id
+		if (!state.equals(ControlState.READY)) 		//sTaTe & CONTROL_STATE
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
-		mEmBeR = lIbRaRy.gEt_MeMbEr(mEmBeR_Id);
-		if (mEmBeR == null) {
-			uI.DiSpLaY("Invalid memberId");
+		member = library.getMember(memberId);		//mEmBeR & lIbRaRy & gEt_MeMbEr & mEmBeR_Id
+		if (member == null) {				//mEmBeR
+			ui.Display("Invalid memberId");		//uI & DiSpLaY
 			return;
 		}
-		if (lIbRaRy.cAn_MeMbEr_BoRrOw(mEmBeR)) {
-			pEnDiNg_LiSt = new ArrayList<>();
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.SCANNING);
-			sTaTe = CONTROL_STATE.SCANNING; 
+		if (library.canMemberBorrow(member)) {			//lIbRaRy & cAn_MeMbEr_BoRrOw & mEmBeR
+			pendingList = new ArrayList<>();		//pEnDiNg_LiSt 
+			ui.setState(BorrowBookUI.UiState.SCANNING);	//uI & SeT_StAtE & uI_STaTe
+			state = ControlState.SCANNING; 			//sTaTe & CONTROL_STATE
 		}
 		else {
-			uI.DiSpLaY("Member cannot borrow at this time");
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.RESTRICTED); 
+			ui.Display("Member cannot borrow at this time");	//uI & DiSpLaY
+			ui.setState(BorrowBookUI.UiState.RESTRICTED); 		//uI & SeT_StAtE & uI_STaTe
 		}
 	}
 	
 	
 	public void ScAnNeD(int bOoKiD) {
-		bOoK = null;
+		bOoK = null;			
 		if (!sTaTe.equals(CONTROL_STATE.SCANNING)) 
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 			
