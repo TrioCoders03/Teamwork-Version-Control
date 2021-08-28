@@ -30,24 +30,24 @@ public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 		state = ControlState.INITIALISED;	//sTaTe & CONTROL_STATE
 	}
 	
-
-	public void SeT_Ui(BorrowBookUI Ui) {
-		if (!sTaTe.equals(CONTROL_STATE.INITIALISED)) 
+	------------------------
+	public void setUi(BorrowBookUI ui) {			//setUi & Ui
+		if (!state.equals(ControlState.INITIALISED)) 	//sTaTe & CONTROL_STATE 
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
 			
-		this.uI = Ui;
-		Ui.SeT_StAtE(BorrowBookUI.uI_STaTe.READY);
-		sTaTe = CONTROL_STATE.READY;		
+		this.ui = ui;			//Ui & uI
+		ui.setState(BorrowBookUI.UiState.READY);	//Ui & SeT_StAtE & uI_STaTe
+		state = ControlState.READY;			//sTaTe & CONTROL_STATE
 	}
 
 		
-	public void SwIpEd(int mEmBeR_Id) {
-		if (!sTaTe.equals(CONTROL_STATE.READY)) 
+	public void swiped(int memberId) {			//SwIpEd & mEmBeR_Id
+		if (!state.equals(ControlState.READY)) 		//sTaTe & CONTROL_STATE
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
-		mEmBeR = lIbRaRy.gEt_MeMbEr(mEmBeR_Id);
-		if (mEmBeR == null) {
-			uI.DiSpLaY("Invalid memberId");
+		member = library.getMember(memberId);		//mEmBeR & lIbRaRy & gEt_MeMbEr & mEmBeR_Id
+		if (member == null) {				//mEmBeR
+			ui.Display("Invalid memberId");		//uI & DiSpLaY
 			return;
 		}
 		if (lIbRaRy.cAn_MeMbEr_BoRrOw(mEmBeR)) {
