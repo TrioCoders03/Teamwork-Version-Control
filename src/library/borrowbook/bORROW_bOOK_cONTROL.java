@@ -88,18 +88,18 @@ public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 	}
 	
 	
-	public void CoMpLeTe() {
-		if (pEnDiNg_LiSt.size() == 0) 
-			CaNcEl();
+	public void Complete() {			//CoMpLeTe
+		if (pendingList.size() == 0) 		//pEnDiNg_LiSt
+			Cancel();			//CaNcEl 
 		
 		else {
-			uI.DiSpLaY("\nFinal Borrowing List");
-			for (Book bOoK : pEnDiNg_LiSt) 
-				uI.DiSpLaY(bOoK.toString());
+			ui.Display("\nFinal Borrowing List");	//uI  & DiSpLaY
+			for (Book bOoK : pendingList) 		//pEnDiNg_LiSt
+				ui.Display(book.toString());	//uI & DiSpLaY & bOoK
 			
-			cOmPlEtEd_LiSt = new ArrayList<Loan>();
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.FINALISING);
-			sTaTe = CONTROL_STATE.FINALISING;
+			completedList = new ArrayList<Loan>();		//cOmPlEtEd_LiSt 
+			ui.setState(BorrowBookUI.UiState.FINALISING);	//uI & SeT_StAtE & uI_STaTe
+			state = ControlState.FINALISING;		//sTaTe & CONTROL_STATE
 		}
 	}
 
