@@ -30,7 +30,7 @@ public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 		state = ControlState.INITIALISED;	//sTaTe & CONTROL_STATE
 	}
 	
-	------------------------
+	
 	public void setUi(BorrowBookUI ui) {			//setUi & Ui
 		if (!state.equals(ControlState.INITIALISED)) 	//sTaTe & CONTROL_STATE 
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
@@ -50,20 +50,20 @@ public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 			ui.Display("Invalid memberId");		//uI & DiSpLaY
 			return;
 		}
-		if (lIbRaRy.cAn_MeMbEr_BoRrOw(mEmBeR)) {
-			pEnDiNg_LiSt = new ArrayList<>();
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.SCANNING);
-			sTaTe = CONTROL_STATE.SCANNING; 
+		if (library.canMemberBorrow(member)) {			//lIbRaRy & cAn_MeMbEr_BoRrOw & mEmBeR
+			pendingList = new ArrayList<>();		//pEnDiNg_LiSt 
+			ui.setState(BorrowBookUI.UiState.SCANNING);	//uI & SeT_StAtE & uI_STaTe
+			state = ControlState.SCANNING; 			//sTaTe & CONTROL_STATE
 		}
 		else {
-			uI.DiSpLaY("Member cannot borrow at this time");
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.RESTRICTED); 
+			ui.Display("Member cannot borrow at this time");	//uI & DiSpLaY
+			ui.setState(BorrowBookUI.UiState.RESTRICTED); 		//uI & SeT_StAtE & uI_STaTe
 		}
 	}
 	
 	
 	public void ScAnNeD(int bOoKiD) {
-		bOoK = null;
+		bOoK = null;			
 		if (!sTaTe.equals(CONTROL_STATE.SCANNING)) 
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 			
