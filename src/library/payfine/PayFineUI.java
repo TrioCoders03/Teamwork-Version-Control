@@ -43,7 +43,7 @@ public class PayFineUI {
 					break;
 				}
 				try {
-					int member_ID = Integer.valueOf(memberString).intValue(); //Member
+					int memberId = Integer.valueOf(memberString).intValue(); //Member
 					 control.cardSwiped(memberId); //CoNtRoL.CaRd_sWiPeD(Member_ID)
 				}
 				catch (NumberFormatException e) {
