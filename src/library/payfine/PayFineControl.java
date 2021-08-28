@@ -32,11 +32,11 @@ public class PayFineControl  { //pAY_fINE_cONTROL=PayFineControl
 	}
 
 
-	public void cardSwiped(int memberID)  {   //CaRd_sWiPeD(int MeMbEr_Id
+	public void cardSwiped(int memberId)  {   //CaRd_sWiPeD(int MeMbEr_Id
 		if (!state.equals(ControlState.READY))  //StAtE.equals(cOnTrOl_sTaTe.READY
 			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
 			
-		member = library.getMember(memberID);  //MeMbEr = LiBrArY.gEt_MeMbEr(MeMbEr_Id)
+		member = library.getMember(memberId);  //MeMbEr = LiBrArY.gEt_MeMbEr(MeMbEr_Id)
 		
 		if (member == null) {   //MeMbEr
 			ui.display("Invalid Member Id"); //Ui.diSplAY
