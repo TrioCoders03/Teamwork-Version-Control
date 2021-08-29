@@ -39,8 +39,8 @@ public class ReturnBookControl {                                                
 			ui.display("Invalid Book Id");                   //Ui.DiSpLaY
 			return;
 		}
-		if (!cUrReNt_bOoK.iS_On_LoAn()) {
-			Ui.DiSpLaY("Book has not been borrowed");
+		if (!currentBook.isOnLoan()) {                         //cUrReNt_bOoK.iS_On_LoAn(
+			ui.DiSpLaY("Book has not been borrowed");
 			return;
 		}		
 		currentLoan = library.getLoanByBookId(bookId);             //CurrENT_loan = lIbRaRy.GeT_LoAn_By_BoOkId(bOoK_iD);	
