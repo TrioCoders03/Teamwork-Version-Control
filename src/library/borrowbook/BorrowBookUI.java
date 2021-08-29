@@ -19,7 +19,7 @@ public class BorrowBookUI {
 	public BorrowBookUI(BorrowBookControl  control) { 	//bORROW_bOOK_cONTROL
 		this.control = control;				//CoNtRoL
 		input = new Scanner(System.in);			//InPuT
-		state = UISTate.INITIALISED;			//StaTe & uI_STaTe
+		state = UIState.INITIALISED;			//StaTe & uI_STaTe
 		control.setUI(this);				//SeT_Ui
 	}
 
@@ -59,8 +59,8 @@ public class BorrowBookUI {
 					break;
 				}
 				try {
-					int memberID = Integer.valueOf(memberString).intValue();	//MeMbEr_Id & MEM_STR 
-					control.swiped(memberID);				//CoNtRoL & SwIpEd & MeMbEr_Id
+					int memberId = Integer.valueOf(memberString).intValue();	//MeMbEr_Id & MEM_STR 
+					control.swiped(memberId);				//CoNtRoL & SwIpEd & MeMbEr_Id
 				}
 				catch (NumberFormatException e) {		
 					output("Invalid Member Id");		//OuTpUt
@@ -81,8 +81,8 @@ public class BorrowBookUI {
 					break;
 				}
 				try {
-					int bookID = Integer.valueOf(bookStringInput).intValue();		//BiD & BoOk_StRiNg_InPuT
-					control.scanned(bookID);							//CoNtRoL & ScAnNeD & BiD
+					int bookId = Integer.valueOf(bookStringInput).intValue();		//BiD & BoOk_StRiNg_InPuT
+					control.scanned(bookId);							//CoNtRoL & ScAnNeD & BiD
 					
 				} catch (NumberFormatException e) {		
 					output("Invalid Book Id");		//OuTpUt
