@@ -10,7 +10,7 @@ public class PayFineControl  { //pAY_fINE_cONTROL=PayFineControl
 	
 	private PayFineUI ui //Ui;
 	private enum  ControlState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED }; //cOnTrOl_sTaTe 
-	private    cOnTrOl_sTaTe StAtE //cOnTrOl_sTaTe StAtE  ;
+	private    ControlState state; //cOnTrOl_sTaTe StAtE  ;
 	
 	private Library library //LiBrArY;
 	private Member member //MeMbEr;
@@ -22,7 +22,7 @@ public class PayFineControl  { //pAY_fINE_cONTROL=PayFineControl
 	}
 	
 	
-	  public void setUI(PayFineUI ui) //public void SeT_uI(PayFineUI uI) {
+	  public void setUI(PayFineUI ui) { //public void SeT_uI(PayFineUI uI) 
 		if (!state.equals(ControlState.INITIALISED)) { //StAtE.equals(cOnTrOl_sTaTe
 			throw new RuntimeException("PayFineControl: cannot call setUI except in INITIALISED state");
 		}	
@@ -32,11 +32,11 @@ public class PayFineControl  { //pAY_fINE_cONTROL=PayFineControl
 	}
 
 
-	public void cardSwiped(int memberID)  {   //CaRd_sWiPeD(int MeMbEr_Id
+	public void cardSwiped(int memberId)  {   //CaRd_sWiPeD(int MeMbEr_Id
 		if (!state.equals(ControlState.READY))  //StAtE.equals(cOnTrOl_sTaTe.READY
 			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
 			
-		member = library.getMember(memberID);  //MeMbEr = LiBrArY.gEt_MeMbEr(MeMbEr_Id)
+		member = library.getMember(memberId);  //MeMbEr = LiBrArY.gEt_MeMbEr(MeMbEr_Id)
 		
 		if (member == null) {   //MeMbEr
 			ui.display("Invalid Member Id"); //Ui.diSplAY

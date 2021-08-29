@@ -62,43 +62,44 @@ public class BorrowBookControl { 	//bORROW_bOOK_cONTROL
 	}
 	
 	
-	public void ScAnNeD(int bOoKiD) {
-		bOoK = null;			
-		if (!sTaTe.equals(CONTROL_STATE.SCANNING)) 
+	public void Scanned(int bookId) {		//ScAnNeD & bOoKiD 
+		book = null;				//bOoK 
+		if (!state.equals(ControlState.SCANNING))	// sTaTe & CONTROL_STATE
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 			
-		bOoK = lIbRaRy.gEt_BoOk(bOoKiD);
-		if (bOoK == null) {
-			uI.DiSpLaY("Invalid bookId");
+		book = library.getBook(bookId);		//bOoK & lIbRaRy & gEt_BoOk & bOoKiD
+		if (book == null) {			//bOoK
+			ui.Display("Invalid bookId");	//uI & DiSpLaY 
 			return;
 		}
-		if (!bOoK.iS_AvAiLaBlE()) {
-			uI.DiSpLaY("Book cannot be borrowed");
+		if (!book.isAvailable()) {			//bOoK & iS_AvAiLaBlE 
+			ui.Display("Book cannot be borrowed");	//uI & DiSpLaY 
 			return;
 		}
-		pEnDiNg_LiSt.add(bOoK);
-		for (Book B : pEnDiNg_LiSt) 
-			uI.DiSpLaY(B.toString());
+		pendingList.add(book);			//pEnDiNg_LiSt & bOoK
+		for (Book B : pendingList) 		//pEnDiNg_LiSt 
+			ui.Display(B.toString());	//uI & DiSpLaY
 		
-		if (lIbRaRy.gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
-			uI.DiSpLaY("Loan limit reached");
-			CoMpLeTe();
+		//if (lIbRaRy.gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
+		if (library.getNumberOfLoansRemainingForMember(member) - pendingList.size() == 0) {	
+			ui.Display("Loan limit reached");	//uI & DiSpLaY 
+			Complete();				//CoMpLeTe 
 		}
 	}
 	
 	
-	public void CoMpLeTe() {
-		if (pEnDiNg_LiSt.size() == 0) 
-			CaNcEl();
+	public void Complete() {			//CoMpLeTe
+		if (pendingList.size() == 0) 		//pEnDiNg_LiSt
+			Cancel();			//CaNcEl 
 		
 		else {
-			uI.DiSpLaY("\nFinal Borrowing List");
-			for (Book bOoK : pEnDiNg_LiSt) 
-				uI.DiSpLaY(bOoK.toString());
+			ui.Display("\nFinal Borrowing List");	//uI  & DiSpLaY
+			for (Book bOoK : pendingList) 		//pEnDiNg_LiSt
+				ui.Display(book.toString());	//uI & DiSpLaY & bOoK
 			
-			cOmPlEtEd_LiSt = new ArrayList<Loan>();
-			uI.SeT_StAtE(BorrowBookUI.uI_STaTe.FINALISING);
-			sTaTe = CONTROL_STATE.FINALISING;
+			completedList = new ArrayList<Loan>();		//cOmPlEtEd_LiSt 
+			ui.setState(BorrowBookUI.UiState.FINALISING);	//uI & SeT_StAtE & uI_STaTe
+			state = ControlState.FINALISING;		//sTaTe & CONTROL_STATE
 		}
 	}
 
